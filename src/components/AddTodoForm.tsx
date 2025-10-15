@@ -99,6 +99,11 @@ export const AddTodoForm = ({ onAdd }: AddTodoFormProps) => {
               mode="single"
               selected={deadline}
               onSelect={setDeadline}
+              disabled={(date) => {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                return date < today;
+              }}
               initialFocus
               className="pointer-events-auto"
             />
