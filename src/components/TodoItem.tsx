@@ -26,7 +26,6 @@ export const TodoItem = ({ id, task, isComplete, deadline, onUpdate }: TodoItemP
 
     if (error) {
       toast.error("Failed to update todo");
-      console.error("Error updating todo:", error);
     } else {
       onUpdate();
     }
@@ -39,7 +38,6 @@ export const TodoItem = ({ id, task, isComplete, deadline, onUpdate }: TodoItemP
 
     if (error) {
       toast.error("Failed to delete todo");
-      console.error("Error deleting todo:", error);
     } else {
       toast.success("Todo deleted");
       onUpdate();

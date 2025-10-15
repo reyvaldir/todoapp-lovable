@@ -29,7 +29,6 @@ export const TodoApp = () => {
 
     if (error) {
       toast.error("Failed to load todos");
-      console.error("Error fetching todos:", error);
     } else {
       setTodos(data || []);
     }
@@ -64,7 +63,6 @@ export const TodoApp = () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
       toast.error("Failed to log out");
-      console.error("Error logging out:", error);
     }
   };
 

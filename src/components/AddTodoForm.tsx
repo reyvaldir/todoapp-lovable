@@ -9,6 +9,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
+const MAX_TASK_LENGTH = 500;
+
 interface AddTodoFormProps {
   onAdd: () => void;
 }
@@ -23,6 +25,11 @@ export const AddTodoForm = ({ onAdd }: AddTodoFormProps) => {
     
     if (!task.trim()) {
       toast.error("Please enter a task");
+      return;
+    }
+
+    if (task.trim().length > MAX_TASK_LENGTH) {
+      toast.error(`Task must be less than ${MAX_TASK_LENGTH} characters`);
       return;
     }
 
@@ -46,7 +53,6 @@ export const AddTodoForm = ({ onAdd }: AddTodoFormProps) => {
 
     if (error) {
       toast.error("Failed to add todo");
-      console.error("Error adding todo:", error);
     } else {
       toast.success("Todo added!");
       setTask("");
@@ -60,14 +66,19 @@ export const AddTodoForm = ({ onAdd }: AddTodoFormProps) => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2">
       <div className="flex gap-2">
-        <Input
-          type="text"
-          placeholder="What needs to be done?"
-          value={task}
-          onChange={(e) => setTask(e.target.value)}
-          disabled={isAdding}
-          className="flex-1"
-        />
+        <div className="flex-1 flex flex-col gap-1">
+          <Input
+            type="text"
+            placeholder="What needs to be done?"
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
+            disabled={isAdding}
+            maxLength={MAX_TASK_LENGTH}
+          />
+          <span className="text-xs text-muted-foreground ml-1">
+            {task.length}/{MAX_TASK_LENGTH} characters
+          </span>
+        </div>
         <Popover>
           <PopoverTrigger asChild>
             <Button
