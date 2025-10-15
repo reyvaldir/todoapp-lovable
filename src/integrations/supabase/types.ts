@@ -17,6 +17,7 @@ export type Database = {
       todos: {
         Row: {
           created_at: string
+          deadline: string | null
           id: string
           is_complete: boolean
           task: string
@@ -24,6 +25,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          deadline?: string | null
           id?: string
           is_complete?: boolean
           task: string
@@ -31,6 +33,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          deadline?: string | null
           id?: string
           is_complete?: boolean
           task?: string

@@ -4,6 +4,7 @@ interface Todo {
   id: string;
   task: string;
   is_complete: boolean;
+  deadline?: string;
   created_at: string;
 }
 
@@ -30,6 +31,7 @@ export const TodoList = ({ todos, onUpdate }: TodoListProps) => {
           id={todo.id}
           task={todo.task}
           isComplete={todo.is_complete}
+          deadline={todo.deadline}
           onUpdate={onUpdate}
         />
       ))}
