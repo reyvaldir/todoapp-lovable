@@ -60,9 +60,15 @@ export const TodoApp = () => {
   }, []);
 
   const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      toast.error("Failed to log out");
+    try {
+      // Clear local session first
+      await supabase.auth.signOut({ scope: 'local' });
+      // The onAuthStateChange listener will handle navigation
+    } catch (error) {
+      // Even if server signout fails, clear local session
+      console.error('Logout error:', error);
+      // Force navigation to auth page
+      window.location.href = '/auth';
     }
   };
 
