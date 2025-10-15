@@ -61,13 +61,13 @@ export const TodoApp = () => {
 
   const handleLogout = async () => {
     try {
-      // Clear local session first
+      // Clear local session first to ensure immediate client-side logout
       await supabase.auth.signOut({ scope: 'local' });
-      // The onAuthStateChange listener will handle navigation
+      // Force navigation to the auth page immediately
+      window.location.href = '/auth';
     } catch (error) {
-      // Even if server signout fails, clear local session
       console.error('Logout error:', error);
-      // Force navigation to auth page
+      // Ensure navigation even if an error occurs
       window.location.href = '/auth';
     }
   };
